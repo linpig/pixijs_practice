@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+   
+    <script src="../js/pixi.min.js"></script>
+    <script>
+    //Aliases
+    var Container = PIXI.Container,
+        autoDetectRenderer = PIXI.autoDetectRenderer,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        Sprite = PIXI.Sprite;
+
+    //Create a Pixi stage and renderer 
+    var stage = new Container(),
+        renderer = autoDetectRenderer(1920, 800);
+    document.body.appendChild(renderer.view);
+
+    //Load an image and the run the `setup` function
+    loader
+        .add("../images/bunny.png")
+        .load(setup);
+
+    //Define any variables that are used in more than one function
+    //Define any variables that are used in more than one function
+    var cat, state;
+
+    function setup() {
+
+        //Create the `cat` sprite 
+        cat = new Sprite(resources["../images/bunny.png"].texture);
+        cat.y = 96;
+        cat.vx = 0;
+        cat.vy = 0;
+        stage.addChild(cat);
+
+        //Set the game state
+        state = play;
+
+        //Start the game loop
+        gameLoop();
+    }
+
+    function gameLoop() {
+
+        //Loop this function 60 times per second
+        requestAnimationFrame(gameLoop);
+
+        //Update the current game state:
+        state();
+
+        //Render the stage
+        renderer.render(stage);
+    }
+
+    function play() {
+
+        //Move the cat 1 pixel to the right each frame
+        cat.vx = 1
+        cat.x += cat.vx;
+    }
+    </script>
+    <p>
+        <a href="../index.html" class="btn">&lt; Go Back</a>
+    </p>
+</body>
+
+</html>

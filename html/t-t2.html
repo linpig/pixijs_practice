@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <script src="../js/pixi.min.js"></script>
+    <script>
+    //Aliases
+    var Container = PIXI.Container,
+        autoDetectRenderer = PIXI.autoDetectRenderer,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        Sprite = PIXI.Sprite;
+
+    //Create a Pixi stage and renderer and add the 
+    //renderer.view to the DOM
+    var stage = new Container(),
+        renderer = autoDetectRenderer(800, 600);
+    document.body.appendChild(renderer.view);
+
+    //load an image and run the `setup` function when it's done
+    loader
+        .add("../images/bunny.png")
+        .load(setup);
+
+    function setup() {
+
+        //Create the `cat` sprite, add it to the stage, and render it
+        var cat = new Sprite(resources["../images/bunny.png"].texture);
+        cat.x = 96;
+        cat.y = 96;
+        // cat.width = 80;
+        cat.scale.set(0.5, 0.5);
+
+        cat.rotation = 0.5;
+        stage.addChild(cat);
+        renderer.render(stage);
+    }
+    </script>
+    <p>
+        <a href="../index.html" class="btn">&lt; Go Back</a>
+    </p>
+</body>
+
+</html>

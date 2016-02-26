@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+
+<body>
+    <script src="../js/pixi.min.js"></script>
+    <script>
+    //Aliases
+    var Container = PIXI.Container,
+        autoDetectRenderer = PIXI.autoDetectRenderer,
+        loader = PIXI.loader,
+        resources = PIXI.loader.resources,
+        Sprite = PIXI.Sprite;
+
+    //Create a Pixi stage and renderer 
+    var stage = new Container(),
+        renderer = autoDetectRenderer(1920, 800);
+    document.body.appendChild(renderer.view);
+
+    //Load an image and the run the `setup` function
+    loader
+        .add("../images/bunny.png")
+        .load(setup);
+
+    //Define any variables that are used in more than one function
+    var cat;
+
+    function setup() {
+
+        //Create the `cat` sprite 
+        cat = new Sprite(resources["../images/bunny.png"].texture);
+        stage.addChild(cat);
+
+        //Initialize the cat's velocity variables
+        cat.vx = 0;
+        cat.vy = 0;
+
+        //Start the game loop
+        gameLoop();
+    }
+
+
+    function gameLoop() {
+
+        //Loop this function 60 times per second
+        requestAnimationFrame(gameLoop);
+
+        //Update the cat's velocity
+        cat.vx = 1;
+        cat.vy = 1;
+
+        //Apply the velocity values to the cat's 
+        //position to make it move
+        cat.x += cat.vx;
+        cat.y += cat.vy;
+
+        //Render the stage
+        renderer.render(stage);
+    }
+    </script>
+    <p>
+        <a href="../index.html" class="btn">&lt; Go Back</a>
+    </p>
+</body>
+
+</html>
